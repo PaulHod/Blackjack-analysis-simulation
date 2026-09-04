@@ -1,12 +1,12 @@
 import json
-from Genetic_Algorithm.Deck import Shoe
+from Deck import Shoe
 from Statistical_Analysis.Hand import Hand, Player_Hand, Dealer_Hand
 import numpy as np
 import random
 import time
 from timer import Timer
 
-hands_per_square = 1000000
+hands_per_square = 100000
 shoe = Shoe(10)
 
 hard_blank = np.zeros((10, 10), dtype=int)
@@ -22,6 +22,14 @@ rewards_double  = [hard_blank.copy(),soft_blank.copy(),hard_blank.copy()]
 rewards_hit     = [hard_blank.copy(),soft_blank.copy(),hard_blank.copy()]
 rewards_split   = [hard_blank.copy(),soft_blank.copy(),hard_blank.copy()]
 rewards_stay    = [hard_blank.copy(),soft_blank.copy(),hard_blank.copy()]
+
+hard_blank = np.zeros((10, 10), dtype=float)
+soft_blank = np.zeros((8,10), dtype=float)
+
+stay_chances    = [hard_blank.copy(),soft_blank.copy(),hard_blank.copy()]
+hit_chances     = [hard_blank.copy(),soft_blank.copy(),hard_blank.copy()]
+double_chances  = [hard_blank.copy(),soft_blank.copy(),hard_blank.copy()]
+split_chances   = [hard_blank.copy(),soft_blank.copy(),hard_blank.copy()]
 
 timer = Timer(280)
 
@@ -149,12 +157,24 @@ for k, segment in enumerate(graph):
             stay_win_chance = rewards_stay[k][i][j]/occurences_stay[k][i][j]
             hit_win_chance = rewards_hit[k][i][j]/occurences_hit[k][i][j]
             double_win_chance = rewards_double[k][i][j]/occurences_double[k][i][j]
+            stay_chances[k][i][j] = stay_win_chance
+            hit_chances[k][i][j] = hit_win_chance
+            double_chances[k][i][j] = double_win_chance
             if k == 2:
                 split_win_chance = rewards_split[k][i][j]/occurences_split[k][i][j]
+                split_chances[k][i][j]= split_win_chance
             else:
                 split_win_chance = -10
             options = [stay_win_chance, hit_win_chance, double_win_chance, split_win_chance]
             graph[k][i][j] = options.index(max(options))
         with open("Statistical_Analysis/graph.json", "w") as f:
             json.dump([graph[0].tolist(), graph[1].tolist(), graph[2].tolist()], f)
+        with open("Statistical_Analysis/stay_chances.json", "w") as f:
+            json.dump([stay_chances[0].tolist(), stay_chances[1].tolist(), stay_chances[2].tolist()], f)
+        with open("Statistical_Analysis/hit_chances.json", "w") as f:
+            json.dump([hit_chances[0].tolist(), hit_chances[1].tolist(), hit_chances[2].tolist()], f)
+        with open("Statistical_Analysis/double_chances.json", "w") as f:
+            json.dump([double_chances[0].tolist(), double_chances[1].tolist(), double_chances[2].tolist()], f)
+        with open("Statistical_Analysis/split_chances.json", "w") as f:
+            json.dump([hard_blank.copy().tolist(), soft_blank.copy().tolist(), split_chances[2].tolist()], f)
         

@@ -1,6 +1,6 @@
 from Hand import Player_Hand, Dealer_Hand
 from Deck import Shoe
-from People import Person
+from Player import Person
 
 # Setup
 decks = 1

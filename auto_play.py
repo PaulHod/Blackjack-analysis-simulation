@@ -1,13 +1,13 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-from People import Person
+from Player import Person
 from Hand import Player_Hand, Dealer_Hand
 from Deck import Shoe
 from Ideal_Play import choose
 
 decks = 1
-hands = 100000
+hands = 10000000
 bet   = 10
 
 dealer = Person(0)
@@ -21,23 +21,23 @@ occurences_per_count = np.zeros_like(counts)
 
 for i in range(hands):
     money[i] = player.money
-    dealer.deal(Dealer_Hand(shoe.draw(), shoe.draw()))
-    showing = dealer.hands[0].showing()
     index = round((shoe.count/decks + 20) * decks)
     occurences_per_count[index] += 1
+    dealer.deal(Dealer_Hand(shoe.draw(), shoe.draw()))
+    showing = dealer.hands[0].showing()
 
     # Counting Play
-    if shoe.count > 0:
-        bet_modifier = 1 * shoe.count / decks
-        player.deal(Player_Hand(shoe.draw(), shoe.draw(), bet_modifier*bet))
-        player.remove_money(bet_modifier*bet)
-    else:
-        player.deal(Player_Hand(shoe.draw(), shoe.draw(), bet))
-        player.remove_money(bet)
+    # if shoe.count > 0:
+    #     bet_modifier = 1 * shoe.count / decks
+    #     player.deal(Player_Hand(shoe.draw(), shoe.draw(), bet_modifier*bet))
+    #     player.remove_money(bet_modifier*bet)
+    # else:
+    #     player.deal(Player_Hand(shoe.draw(), shoe.draw(), bet))
+    #     player.remove_money(bet)
 
     # Regular Play
-    # player.deal(Player_Hand(shoe.draw(), shoe.draw(), bet))
-    # player.remove_money(bet)
+    player.deal(Player_Hand(shoe.draw(), shoe.draw(), bet))
+    player.remove_money(bet)
 
     for hand in player.hands:
         while not hand.standing:
@@ -85,12 +85,12 @@ for i in range(hands):
             player.add_money(hand.bet)
             # print(hand.cards, dealer_total, "SPLIT")
         else:
-            wins_per_count[index] -= winnings/bet
+            wins_per_count[index] -= hand.bet/bet
         #     print(hand.cards, dealer_total,"LOSS")
     player.reset()
     dealer.reset()
-    shoe.reset()
-    if i%(52*decks) == 0:
+    if len(shoe.cards) < 25:
+        shoe.reset()
         shoe.shuffle()
 
 
@@ -105,12 +105,16 @@ for i, win in enumerate(wins_per_count):
     if occurences_per_count[i] != 0:
         wins_per_count[i] = win/occurences_per_count[i]
 
-occurences_per_count = occurences_per_count * wins_per_count.max()/occurences_per_count.max()
+min_occurrences = 100
+
+valid = occurences_per_count >= min_occurrences
+
+occurences_per_count = occurences_per_count/occurences_per_count.sum()
 # wins_per_count = wins_per_count*occurences_per_count
-plt.plot(counts, wins_per_count)
-plt.plot(counts, occurences_per_count)
+# plt.plot(counts, occurences_per_count)
+plt.plot(counts[valid], wins_per_count[valid])
 plt.title("Winnings vs True Count")
 plt.xlabel("True Count")
-plt.ylabel("Win Percentage")
+plt.ylabel("Average Return per Hand")
 plt.grid("major")
 plt.show()

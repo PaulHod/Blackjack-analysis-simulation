@@ -25,7 +25,6 @@ for j in range(50):
 # Analyze and score each strategy
 # Normalize scores
 # Create 10 new genomes from scores:
-#   
 
 best = []
 for i in range(1000):

@@ -5,7 +5,7 @@ from matplotlib.colors import ListedColormap
 from matplotlib.patches import Patch
 from Deck import Shoe
 from Hand import Player_Hand, Dealer_Hand
-from People import Person
+from Player import Person
 
 class Genome:
     def __init__(self):
@@ -153,7 +153,7 @@ class Genome:
             "17+", "16", "15", "14", "13", "12", "11", "10", "9", "8-","A,9","A,8","A,7","A,6","A,5","A,4","A,3","A,2","AA","TT","99","88","77","66","55","44","33","22"
         ]
 
-        fig, ax = plt.subplots(figsize=(6, 8))
+        fig, ax = plt.subplots(figsize=(5, 7))
 
         ax.imshow(
             strategy,
@@ -209,7 +209,7 @@ class Genome:
 
         # Title
         ax.set_title(
-            "Blackjack Perfect Strategy (Dealer Stands Soft 17)",
+            "Blackjack Strategy: Genetic Algorithm",
             fontsize=12,
             fontweight="bold",
             pad=50
@@ -235,5 +235,5 @@ class Genome:
         plt.show()
 
 gene = Genome()
-gene.read("Statistical_Analysis/graph.json")
+gene.read("Genetic_Algorithm/best.json")
 gene.display()
