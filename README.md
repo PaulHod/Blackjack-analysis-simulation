@@ -2,6 +2,16 @@
 
 An object-oriented Python environment for simulating blackjack under different rules and configurations. The project includes tools for simulating large numbers of hands, analyzing the effect of card counting, and automatically developing blackjack strategies using both genetic algorithms and statistical analysis.
 
+## Technical Features
+
+- Object-oriented blackjack simulation in Python
+- Monte Carlo simulation of large numbers of hands
+- Card-counting and variable-betting analysis
+- Genetic algorithm for strategy optimization
+- Statistical evaluation of individual player decisions
+- NumPy for numerical analysis and data storage
+- Matplotlib for strategy and performance visualization
+
 ## Auto_Play.py
 
 `Auto_Play.py` simulates a configurable number of blackjack hands using the strategy defined in `Ideal_Graph.py`. The simulation tracks the player's bankroll over time and records win rates at different running counts to analyze the effect of card counting.
