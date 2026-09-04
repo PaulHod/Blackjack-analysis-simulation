@@ -1,4 +1,4 @@
-from genome import Genome
+from Genetic_Algorithm.genome import Genome
 import random
 import numpy as np
 import time
