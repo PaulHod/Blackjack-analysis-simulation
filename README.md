@@ -24,7 +24,7 @@ Below is an example of the relationship between running count and winnings from 
 
 After running the same rules for ten million hands, I was then able to filter out outliers in the data by only accepting entries with 1000 or more hands played. After applying a linear fit to the data I achieved the following results.
 
-![Winnings vs Count Fit](images/Winerate$20fit.png)
+![Winnings vs Count Fit](images/Winerate%20fit.png)
 
 The weighted $R^2$ value asserts confidence in this fit predicting $96.3%$ of variations in this data. Importantly, the x-intercept of the fit shoes the point where the player begins to have an advantage in regular play at a true count of $1.35$.
 
