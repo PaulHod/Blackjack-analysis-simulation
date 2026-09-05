@@ -26,7 +26,7 @@ After running the same rules for ten million hands, I was then able to filter ou
 
 ![Winnings vs Count Fit](images/Winrate%20fit.png)
 
-The weighted $R^2$ value asserts confidence in this fit predicting $96.3%$ of variations in this data. Importantly, the x-intercept of the fit shoes the point where the player begins to have an advantage in regular play at a true count of $1.35$.
+The weighted $R^2$ value asserts confidence in this fit predicting $96.3$% of variations in this data. Importantly, the x-intercept of the fit shoes the point where the player begins to have an advantage in regular play at a true count of $1.35$.
 
 ## Genetic Algorithm
 
