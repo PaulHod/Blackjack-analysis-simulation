@@ -32,4 +32,4 @@ class Shoe:
         self.played.clear()
 
     def true_count(self):
-        return self.count / self.decks
+        return self.count / (len(self.cards) / 52)
